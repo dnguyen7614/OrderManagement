@@ -1,0 +1,11 @@
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/users
+    username: root
+    password: MangCau1988@@
+
+    jpa:
+      show-sql: true
+      hibernate:
+        ddl-auto: update
+        dml-auto: update
