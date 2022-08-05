@@ -15,21 +15,22 @@ import java.util.Optional;
 @Service
 public class OrderService {
 
-
-    private final OrderRepository orderRepo;
-
     @Autowired
-    public OrderService(OrderRepository orderRepo){
-        this.orderRepo = orderRepo;
+    private OrderRepository orderRepo;
+
+    public OrderService(){
+
     }
 
     public List<Order>findAllOrders(){
         return orderRepo.findAll();
     }
 
-    public Order findOrderById(Long orderId){
-        return orderRepo.findOrderById()
+    public Optional<Order> findOrderById(Long orderId){
+       Optional<Order> order = orderRepo.findById(orderId);
+                order
                 .orElseThrow(() -> new OrderNotFoundException("Order by id "+ orderId +"was not found"));
+        return order;
     }
 
     public Order addNewOrder(Order newOrder){

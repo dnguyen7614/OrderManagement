@@ -1,11 +1,13 @@
 spring:
   datasource:
-    url: jdbc:mysql://localhost:3306/users
+    driverClassName: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/orders
     username: root
     password: MangCau1988@@
-    driver-class-name: com.mysql.cj.jdbc.Driver
 
-    jpa:
-      show-sql: true
-      hibernate:
-        ddl-auto: update
+
+
+  jpa:
+    hibernate.ddl-auto: update
+    generate-ddl: true
+    show-sql: true

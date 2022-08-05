@@ -6,13 +6,19 @@ import com.hexaware.ordermanagement.models.Order;
 import com.hexaware.ordermanagement.models.User;
 import com.hexaware.ordermanagement.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
-import java.util.Optional;
 
+
+@Service
 public class UserService {
 
     @Autowired
     private UserRepository repo;
+
+    public UserService(){
+
+    }
 
     public User addNewUser(User newUser) {
         return repo.save(newUser);
@@ -20,7 +26,7 @@ public class UserService {
 
 
     public User findUserById(Long userId){
-        return repo.findUserById()
+        return repo.findById(userId)
                 .orElseThrow(() -> new UserNotFoundException("User by id "+ userId +"was not found"));
     }
 }
