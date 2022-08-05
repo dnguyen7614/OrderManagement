@@ -1,7 +1,10 @@
 package com.hexaware.ordermanagement.services;
 
+import com.hexaware.ordermanagement.exception.UserNotFoundException;
 import com.hexaware.ordermanagement.models.Order;
+import com.hexaware.ordermanagement.models.User;
 import com.hexaware.ordermanagement.repositories.OrderRepository;
+import com.hexaware.ordermanagement.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,20 +14,40 @@ import java.util.Optional;
 @Service
 public class OrderService {
 
+
+    private final OrderRepository orderRepo;
+
     @Autowired
-    private OrderRepository orderRepository;
-
-
-    public Order saveOrder(Order order) {
-        orderRepository.save(order);
-        return order;
+    public OrderService(OrderRepository orderRepo){
+        this.orderRepo = orderRepo;
     }
 
-    public List<Order> getAllOrders() {
-        return orderRepository.findAll();
+    public List<Order>findAllOrders(){
+        return orderRepo.findAll();
     }
 
-    public Optional<Order> getOrder(Long orderid) {
-        return orderRepository.findById(orderid);
+    public Order findOrderById(Long orderId){
+        return orderRepo.findOrderById()
+                .orElseThrow(() -> new UserNotFoundException("Order by id "+ orderId +"was not found"));
+    }
+
+    public Order addNewOrder(Order newOrder){
+        return orderRepo.save(newOrder);
+    }
+
+    public Order updateOrder(Order newOrder){
+        return orderRepo.save(newOrder);
+    }
+
+    public void deleteOrder(Long orderId){
+        orderRepo.deleteById(orderId);
+    }
+
+    public List<Order> filterOrder(String keywords){
+        return null;
+    }
+
+    public List<Order> sortingOrder(){
+        return null;
     }
 }

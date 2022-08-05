@@ -11,12 +11,13 @@ public class UserService {
     @Autowired
     private UserRepository repo;
 
-    public User saveUser(User user){
-        repo.save(user);
-        return user;
+    public User addNewUser(User newUser) {
+        return repo.save(newUser);
     }
 
     public Optional<User> getUser(Long userId){
         return repo.findById(userId);
     }
+
+
 }

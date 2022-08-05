@@ -33,7 +33,6 @@ public class Order {
     private boolean orderStatus;
 
     @ManyToOne
-    @JoinColumn(name = "userid")
     private User user;
 
 

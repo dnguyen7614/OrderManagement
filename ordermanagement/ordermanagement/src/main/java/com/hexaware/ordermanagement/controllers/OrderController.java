@@ -2,42 +2,49 @@ package com.hexaware.ordermanagement.controllers;
 
 import com.hexaware.ordermanagement.models.Order;
 import com.hexaware.ordermanagement.services.OrderService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
-import javax.websocket.server.PathParam;
 import java.util.List;
-import java.util.Optional;
 
 @RestController
+@RequestMapping("/order")
 public class OrderController {
 
-    @Autowired
-    OrderService orderService;
+    private final OrderService orderService;
 
-    @GetMapping("/order")
-    public ResponseEntity<List<Order>>getAll(){
-
-        return new ResponseEntity<>(orderService.getAllOrders(), HttpStatus.FOUND);
+    public OrderController(OrderService orderService) {
+        this.orderService = orderService;
     }
 
-    public ResponseEntity<List<Order>>getOrder(@PathParam(value="orderid") Long orderid){
-        Optional<Order> orderData = orderService.getOrder(orderid);
-        return new ResponseEntity<>(orderData, HttpStatus.OK);
+    @GetMapping("/allorder")
+    public ResponseEntity<List<Order>>getAllOrders(){
+        List<Order> orders = orderService.findAllOrders();
+        return new ResponseEntity<>(orders, HttpStatus.OK);
     }
 
-    public ResponseEntity<Order> updateOrder(@PathParam("orderid") long orderid, @RequestBody Order order){
-      Optional<Order> orderData = orderService.getOrder(orderid);
-      return new ResponseEntity<>(orderService.saveOrder(order),HttpStatus.OK);
+    @GetMapping("/find/{orderid}")
+    public ResponseEntity<Order> getOrderById(@PathVariable("orderId") Long orderId){
+        Order order = orderService.findOrderById(orderId);
+        return new ResponseEntity<>(order,HttpStatus.OK);
     }
 
-    public ResponseEntity<Order>createOrder(@RequestBody Order order){
-        return new ResponseEntity<>(orderService.saveOrder(order),HttpStatus.CREATED);
+    @PostMapping("/add")
+    public ResponseEntity<Order> addOrder(@RequestBody Order order){
+        Order newOder = orderService.addNewOrder(order);
+        return new ResponseEntity<>(newOder, HttpStatus.CREATED);
     }
 
+    @PutMapping("/update")
+    public ResponseEntity<Order> updateOrder(@RequestBody Order order) {
+        Order updateOrder = orderService.updateOrder(order);
+        return new ResponseEntity<>(updateOrder, HttpStatus.OK);
+    }
 
+    @PutMapping("/delete/{orderid}")
+    public ResponseEntity<?> deleteOrder(@PathVariable("orderId") Long orderId){
+        orderService.deleteOrder(orderId);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 }
