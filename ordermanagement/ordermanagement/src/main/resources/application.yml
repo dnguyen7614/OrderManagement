@@ -3,15 +3,9 @@ spring:
     url: jdbc:mysql://localhost:3306/users
     username: root
     password: MangCau1988@@
-    driver-class-name: org.mysql.jdbc.Driver
-
+    driver-class-name: com.mysql.cj.jdbc.Driver
 
     jpa:
       show-sql: true
       hibernate:
         ddl-auto: update
-      properties:
-        hibernate:
-          dialect: org.hibernate.dialect.MySQL5Dialect
-server:
-  port: 3306

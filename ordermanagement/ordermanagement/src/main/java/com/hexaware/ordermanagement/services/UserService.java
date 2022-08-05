@@ -1,5 +1,8 @@
 package com.hexaware.ordermanagement.services;
 
+import com.hexaware.ordermanagement.exception.OrderNotFoundException;
+import com.hexaware.ordermanagement.exception.UserNotFoundException;
+import com.hexaware.ordermanagement.models.Order;
 import com.hexaware.ordermanagement.models.User;
 import com.hexaware.ordermanagement.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,9 +18,9 @@ public class UserService {
         return repo.save(newUser);
     }
 
-    public Optional<User> getUser(Long userId){
-        return repo.findById(userId);
+
+    public User findUserById(Long userId){
+        return repo.findUserById()
+                .orElseThrow(() -> new UserNotFoundException("User by id "+ userId +"was not found"));
     }
-
-
 }

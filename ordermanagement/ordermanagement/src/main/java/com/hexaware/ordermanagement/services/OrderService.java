@@ -1,5 +1,6 @@
 package com.hexaware.ordermanagement.services;
 
+import com.hexaware.ordermanagement.exception.OrderNotFoundException;
 import com.hexaware.ordermanagement.exception.UserNotFoundException;
 import com.hexaware.ordermanagement.models.Order;
 import com.hexaware.ordermanagement.models.User;
@@ -28,7 +29,7 @@ public class OrderService {
 
     public Order findOrderById(Long orderId){
         return orderRepo.findOrderById()
-                .orElseThrow(() -> new UserNotFoundException("Order by id "+ orderId +"was not found"));
+                .orElseThrow(() -> new OrderNotFoundException("Order by id "+ orderId +"was not found"));
     }
 
     public Order addNewOrder(Order newOrder){

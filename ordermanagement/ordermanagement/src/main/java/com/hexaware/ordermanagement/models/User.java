@@ -21,10 +21,10 @@ public class User {
     @GeneratedValue
     private Long UserId;
 
-    @NotEmpty(message = "Cannot Be less than 1 character")
+    @Column(name = "first_Name", nullable = false)
     private String firstName;
 
-    @NotEmpty(message = "Cannot Be less than 1 character")
+    @Column(name = "last_Name", nullable = false)
     private String lastName;
 
     @Column(unique = true, nullable = false)
