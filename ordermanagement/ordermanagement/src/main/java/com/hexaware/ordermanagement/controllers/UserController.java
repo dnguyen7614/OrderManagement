@@ -17,8 +17,10 @@ public class UserController {
 
     //GetMapping to retrieve User by Id from the database
     @GetMapping("/find/{userid}")
-    public ResponseEntity<User> getUserById(@PathVariable("userId") Long userId){
-        User user = userService.findUserById(userId);
+    public ResponseEntity<User> findById(@PathVariable("userid") Long userId){
+        System.out.println("user");
+
+        User user = userService.findById(userId);
         return new ResponseEntity<>(user, HttpStatus.OK);
     }
 

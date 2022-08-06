@@ -25,7 +25,7 @@ public class UserService {
     }
 
 
-    public User findUserById(Long userId){
+    public User findById(Long userId){
         return repo.findById(userId)
                 .orElseThrow(() -> new UserNotFoundException("User by id "+ userId +"was not found"));
     }

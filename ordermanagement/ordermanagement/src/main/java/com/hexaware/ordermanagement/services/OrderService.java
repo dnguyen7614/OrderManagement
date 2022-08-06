@@ -26,7 +26,7 @@ public class OrderService {
         return orderRepo.findAll();
     }
 
-    public Optional<Order> findOrderById(Long orderId){
+    public Optional<Order> findById(Long orderId){
        Optional<Order> order = orderRepo.findById(orderId);
                 order
                 .orElseThrow(() -> new OrderNotFoundException("Order by id "+ orderId +"was not found"));
