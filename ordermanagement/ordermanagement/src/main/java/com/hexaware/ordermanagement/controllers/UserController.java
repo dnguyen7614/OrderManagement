@@ -18,17 +18,24 @@ public class UserController {
     //GetMapping to retrieve User by Id from the database
     @GetMapping("/find/{userid}")
     public ResponseEntity<User> findById(@PathVariable("userid") Long userId){
-        System.out.println("user");
+        try {
+            User user = userService.findById(userId);
+            return new ResponseEntity<>(user, HttpStatus.OK);
+        } catch (Exception e){
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
 
-        User user = userService.findById(userId);
-        return new ResponseEntity<>(user, HttpStatus.OK);
     }
 
     //PostMapping to add new User into the database
     @PostMapping("/add")
     public ResponseEntity<User> addUser(@RequestBody User user){
-        User newUser = userService.addNewUser(user);
-        return new ResponseEntity<>(newUser, HttpStatus.CREATED);
+        try {
+            User newUser = userService.addNewUser(user);
+            return new ResponseEntity<>(newUser, HttpStatus.CREATED);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
     }
 
 }
