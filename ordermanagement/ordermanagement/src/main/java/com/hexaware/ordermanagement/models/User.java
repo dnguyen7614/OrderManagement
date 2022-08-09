@@ -19,7 +19,7 @@ public class User {
 
     @Id
     @GeneratedValue
-    private Long UserId;
+    private Long userId;
 
     @Column(name = "first_Name", nullable = false)
     private String firstName;

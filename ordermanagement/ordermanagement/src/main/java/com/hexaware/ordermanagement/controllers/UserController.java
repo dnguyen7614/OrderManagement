@@ -9,15 +9,15 @@ import org.springframework.web.bind.annotation.*;
 
 @CrossOrigin(origins = "*")
 @RestController
-@RequestMapping("/user")
+@RequestMapping("/users")
 public class UserController {
 
     @Autowired
     UserService userService;
 
     //GetMapping to retrieve User by Id from the database
-    @GetMapping("/find/{userid}")
-    public ResponseEntity<User> findById(@PathVariable("userid") Long userId){
+    @GetMapping("/find/{id}")
+    public ResponseEntity<User> findById(@PathVariable("id") Long userId){
         try {
             User user = userService.findById(userId);
             return new ResponseEntity<>(user, HttpStatus.OK);

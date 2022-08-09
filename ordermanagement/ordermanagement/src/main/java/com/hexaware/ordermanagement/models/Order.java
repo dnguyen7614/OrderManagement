@@ -30,7 +30,10 @@ public class Order {
     @Column(name = "Quantity", nullable = false)
     private Integer quantity;
 
-    private boolean orderStatus;
+
+    @Column(name = "OrderStatus", nullable = false)
+    private String OrderStatus;
+
 
     @ManyToOne
     @JoinColumn(name = "user_id")
