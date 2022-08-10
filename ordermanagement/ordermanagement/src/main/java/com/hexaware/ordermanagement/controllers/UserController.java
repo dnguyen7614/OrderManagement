@@ -23,7 +23,7 @@ public class UserController {
     @GetMapping("/find/{id}")
     public ResponseEntity<User> findById(@PathVariable("id") Long userId){
         try {
-            logger.info("Get order by id...");
+            logger.info("Get user by id...");
             User user = userService.findById(userId);
             return new ResponseEntity<>(user, HttpStatus.OK);
         } catch (Exception e){

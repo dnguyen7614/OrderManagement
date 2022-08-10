@@ -47,7 +47,7 @@ public class ProductController {
     @GetMapping("/find/{id}")
     public ResponseEntity findById(@PathVariable("id") Long proid){
         try {
-            logger.info("Getting oder by id...");
+            logger.info("Getting product by id...");
             Optional<Product> product = productService.findById(proid);
             return new ResponseEntity<>(product,HttpStatus.OK);
         } catch (Exception e) {
@@ -62,12 +62,12 @@ public class ProductController {
 
         System.out.println("add user");
         try{
-            logger.info("Adding order to database...");
-            System.out.println("try add new user");
+            logger.info("Adding product to database...");
+            System.out.println("try add new product");
             Product newProduct = productService.addNewProduct(product);
             return new ResponseEntity<>(newProduct, HttpStatus.CREATED);
         } catch (Exception e) {
-            System.out.println("no user");
+            System.out.println("no product added");
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
@@ -94,7 +94,7 @@ public class ProductController {
     @DeleteMapping("/delete/{id}")
     public ResponseEntity deleteProducut(@PathVariable("id") Long proid){
         try {
-            logger.info("delete order by id...");
+            logger.info("delete product by id...");
             productService.deleteProduct(proid);
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         } catch (Exception e) {
