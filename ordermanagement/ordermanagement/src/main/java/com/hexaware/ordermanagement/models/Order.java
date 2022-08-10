@@ -5,10 +5,12 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import javax.validation.constraints.DecimalMax;
+import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.NotEmpty;
 import java.util.List;
 import java.util.Objects;
-import java.util.UUID;
+
 
 @Entity
 @Table(name = "orders")
@@ -25,9 +27,11 @@ public class Order {
     private String product;
 
     @Column(name = "Price", nullable = false)
+    @DecimalMax("10000") @DecimalMin("1")
     private Double price;
 
     @Column(name = "Quantity", nullable = false)
+    @DecimalMax("10") @DecimalMin("1")
     private Integer quantity;
 
 
