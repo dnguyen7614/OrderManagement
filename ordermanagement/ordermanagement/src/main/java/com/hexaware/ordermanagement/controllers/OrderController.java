@@ -15,7 +15,7 @@ import java.util.logging.Logger;
 
 @CrossOrigin(origins = "*")
 @RestController
-@RequestMapping("/orders")
+@RequestMapping("/api/orders")
 public class OrderController {
 
     @Autowired
@@ -26,9 +26,6 @@ public class OrderController {
 
     Logger logger = Logger.getLogger(OrderController.class.getName());
 
-    public void setOrderService(OrderService orderService) {
-        this.orderService = orderService;
-    }
 
     //GetMapping to retrieve Order objects from the database;
     @GetMapping("/all")
