@@ -60,14 +60,15 @@ public class ProductController {
     @PostMapping("/add")
     public ResponseEntity<Product> addProduct(@RequestBody Product product){
 
-        System.out.println("add user");
+        System.out.println("add product");
         try{
             logger.info("Adding product to database...");
             System.out.println("try add new product");
             Product newProduct = productService.addNewProduct(product);
+            System.out.println(product.getProductName());
             return new ResponseEntity<>(newProduct, HttpStatus.CREATED);
         } catch (Exception e) {
-            System.out.println("no product added");
+           e.printStackTrace();
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }

@@ -11,6 +11,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.*;
+import javax.validation.constraints.DecimalMax;
 import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.Size;
 
@@ -30,7 +31,7 @@ public class Product {
     private String productName;
 
     @Column(name = "price", nullable = false)
-    @DecimalMin("10000") @DecimalMin("1")
+    @DecimalMax("10000") @DecimalMin("1")
     private double price;
 
     @Column(name = "productDescription", nullable = false)

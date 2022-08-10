@@ -36,7 +36,7 @@ public class UserController {
     @PostMapping("/add")
     public ResponseEntity<User> addUser(@RequestBody User user){
         try {
-            logger.info("adding order to database...");
+            logger.info("adding user to database...");
             User newUser = userService.addNewUser(user);
             return new ResponseEntity<>(newUser, HttpStatus.CREATED);
         } catch (Exception e) {
