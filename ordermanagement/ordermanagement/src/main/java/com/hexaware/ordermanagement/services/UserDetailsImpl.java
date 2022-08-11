@@ -6,8 +6,6 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Size;
 import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
@@ -19,6 +17,8 @@ public class UserDetailsImpl implements UserDetails {
 
     private Long id;
 
+    private String username;
+
     private String email;
 
     @JsonIgnore
@@ -26,11 +26,12 @@ public class UserDetailsImpl implements UserDetails {
 
     private Collection<? extends GrantedAuthority> authorities;
 
-    public UserDetailsImpl(Long userid,
+    public UserDetailsImpl(Long userid, String username,
                            String firstNam, String lastName,
                            String email, String password,
-                           @NotBlank @Size(max = 120) String userPassword, Collection<? extends GrantedAuthority> getAuthorities) {
+                           Collection<? extends GrantedAuthority> getAuthorities) {
         this.id = id;
+        this.username = username;
         this.email = email;
         this.password = password;
         this.authorities = authorities;

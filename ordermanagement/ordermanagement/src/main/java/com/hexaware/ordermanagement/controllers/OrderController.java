@@ -15,7 +15,7 @@ import java.util.logging.Logger;
 
 @CrossOrigin(origins = "*")
 @RestController
-@RequestMapping("/api/orders")
+@RequestMapping("/api")
 public class OrderController {
 
     @Autowired
@@ -28,7 +28,7 @@ public class OrderController {
 
 
     //GetMapping to retrieve Order objects from the database;
-    @GetMapping("/all")
+    @GetMapping("/orders")
     public ResponseEntity<List<Order>>getAllOrders(){
 
         try {
@@ -36,26 +36,28 @@ public class OrderController {
             List<Order> orders = orderService.findAllOrders();
             return new ResponseEntity<>(orders, HttpStatus.OK);
         } catch (Exception e) {
+            logger.info("fail to get list of orders" + e);
             return  new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
 
     }
 
     //GetMapping to retrieve Order Object by orderId;
-    @GetMapping("/find/{id}")
+    @GetMapping("/orders/{id}")
     public ResponseEntity findById(@PathVariable("id") Long orderId){
         try {
             logger.info("Getting oder by id...");
             Optional<Order> order = orderService.findById(orderId);
             return new ResponseEntity<>(order,HttpStatus.OK);
         } catch (Exception e) {
+            logger.info("fail to find order by id" + e);
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
 
     }
 
     //PostMapping to add an Order to the database;
-    @PostMapping("/add")
+    @PostMapping("/orders")
     public ResponseEntity<Order> addOrder(@RequestBody Order order){
 
         System.out.println("add user");
@@ -65,14 +67,16 @@ public class OrderController {
             Order newOder = orderService.addNewOrder(order);
             return new ResponseEntity<>(newOder, HttpStatus.CREATED);
         } catch (Exception e) {
-            System.out.println("no user");
+            logger.info("fail to add order" + e);
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
     //PutMapping to update an Order to the database;
-    @PutMapping("/update/{id}")
+    @PutMapping("/updateorders/{id}")
     public ResponseEntity<Order> updateOrder(@PathVariable(name = "id") Long id,@RequestBody Order order) {
+
+        logger.info("update order to database...");
         Optional<Order> orderData = orderService.findById(id);
         if (orderData.isPresent()){
             orderData.get().setPrice(order.getPrice());
@@ -82,20 +86,21 @@ public class OrderController {
             Order updateOrder = orderService.updateOrder(orderData.get());
             return new ResponseEntity<Order>(updateOrder, HttpStatus.OK);
         } else {
+            logger.info("fail to update order");
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-
 
     }
 
     //DeleteMapping to delete an Order by using the orderid
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("/orders/{id}")
     public ResponseEntity deleteOrder(@PathVariable("id") Long orderId){
         try {
             logger.info("delete order by id...");
             orderService.deleteOrder(orderId);
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         } catch (Exception e) {
+            logger.info("fail to delete order" + e);
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }

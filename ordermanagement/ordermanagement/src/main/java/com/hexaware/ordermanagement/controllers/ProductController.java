@@ -17,7 +17,7 @@ import java.util.logging.Logger;
 
 @CrossOrigin(origins = "*")
 @RestController
-@RequestMapping("/api/products")
+@RequestMapping("/api")
 public class ProductController {
 
     @Autowired
@@ -30,7 +30,7 @@ public class ProductController {
 
 
     //GetMapping to retrieve Order objects from the database;
-    @GetMapping("/all")
+    @GetMapping("/produtcs")
     public ResponseEntity<List<Product>> getAllProducts(){
 
         try {
@@ -38,29 +38,28 @@ public class ProductController {
             List<Product> products = productService.findAllProducts();
             return new ResponseEntity<>(products, HttpStatus.OK);
         } catch (Exception e) {
+            logger.info("fail to get list of products..." + e);
             return  new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
 
     }
 
     //GetMapping to retrieve Order Object by orderId;
-    @GetMapping("/find/{id}")
+    @GetMapping("/products/{id}")
     public ResponseEntity findById(@PathVariable("id") Long proid){
         try {
             logger.info("Getting product by id...");
             Optional<Product> product = productService.findById(proid);
             return new ResponseEntity<>(product,HttpStatus.OK);
         } catch (Exception e) {
+            logger.info("fail to get product by id..." + e);
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-
     }
 
     //PostMapping to add an Order to the database;
-    @PostMapping("/add")
+    @PostMapping("/products")
     public ResponseEntity<Product> addProduct(@RequestBody Product product){
-
-        System.out.println("add product");
         try{
             logger.info("Adding product to database...");
             System.out.println("try add new product");
@@ -68,37 +67,38 @@ public class ProductController {
             System.out.println(product.getProductName());
             return new ResponseEntity<>(newProduct, HttpStatus.CREATED);
         } catch (Exception e) {
-           e.printStackTrace();
+            logger.info("fail to add product..." + e);
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
     //PutMapping to update an Order to the database;
-    @PutMapping("/update/{id}")
+    @PutMapping("/updateproducts/{id}")
     public ResponseEntity<Product> updateOrder(@PathVariable(name = "id") Long id,@RequestBody Product product) {
+        logger.info("update product to database...");
         Optional<Product> productData = productService.findById(id);
         if (productData.isPresent()){
             productData.get().setProductName(product.getProductName());
            productData.get().setPrice(product.getPrice());
             productData.get().setProductDesc(product.getProductDesc());
-            productData.get().setUser(product.getUser());
+            productData.get().setOrder(product.getOrder());
             Product updateProduct = productService.updateProduct(productData.get());
             return new ResponseEntity<Product>(updateProduct, HttpStatus.OK);
         } else {
+            logger.info("fail to update product...");
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-
-
     }
 
     //DeleteMapping to delete an Order by using the orderid
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("/products/{id}")
     public ResponseEntity deleteProducut(@PathVariable("id") Long proid){
         try {
             logger.info("delete product by id...");
             productService.deleteProduct(proid);
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         } catch (Exception e) {
+            logger.info("fail to delete product..." + e);
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }

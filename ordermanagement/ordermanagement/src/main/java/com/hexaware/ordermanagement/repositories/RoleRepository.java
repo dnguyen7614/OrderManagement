@@ -1,11 +1,14 @@
 package com.hexaware.ordermanagement.repositories;
 
 import com.hexaware.ordermanagement.models.ERole;
+import com.hexaware.ordermanagement.models.Role;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
 
-public interface RoleRepository extends JpaRepository<RoleRepository, Long> {
+@Repository
+public interface RoleRepository extends JpaRepository<Role, Long> {
 
-    Optional<RoleRepository> findByName(ERole name);
+    Optional<Role> findByName(ERole name);
 }

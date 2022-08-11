@@ -45,11 +45,4 @@ public class OrderService {
         orderRepo.deleteById(orderId);
     }
 
-    public List<Order> filterOrder(String keywords){
-        return null;
-    }
-
-    public List<Order> sortingOrder(){
-        return null;
-    }
 }

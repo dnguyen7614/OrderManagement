@@ -1,6 +1,10 @@
 package com.hexaware.ordermanagement.security.jwt;
 
+import com.hexaware.ordermanagement.exception.EmailNotFoundException;
+import com.hexaware.ordermanagement.exception.UserNotFoundException;
 import com.hexaware.ordermanagement.services.UserDetailsServiceImpl;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -22,6 +26,8 @@ public class AuthTokenFilter extends OncePerRequestFilter {
 
     @Autowired
     private UserDetailsServiceImpl userDetailsService;
+
+    private static final Logger logger = LoggerFactory.getLogger(AuthTokenFilter.class);
 
     @Override
     protected void doFilterInternal(HttpServletRequest request,
